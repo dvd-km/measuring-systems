@@ -1,0 +1,139 @@
+@font-face {
+            font-family: 'inconsol_reg';
+            src: url('inconsolata-regular-webfont.woff2') format('woff2'),
+                 url('inconsolata-regular-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+
+        @font-face {
+            font-family: 'inconsol_bold';
+            src: url('inconsolata-bold-webfont.woff2') format('woff2'),
+                 url('inconsolata-bold-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+        .bold {
+            font-family: 'inconsol_bold', Fallback, sans-serif;
+        }
+        body { margin: 0;  font-family: 'inconsol_reg', Fallback, sans-serif;}
+        
+        *{
+            box-sizing: content-box;
+        }
+        .container{
+            display: flex;
+        }
+        .container div {
+            flex: 1;
+            /*height: 100%;*/
+            border: 7px solid #204199;
+        }
+        
+        #feet, #liters {
+            display: flex;
+        }
+        
+        #liters{
+            flex-direction: column;
+        }
+        .10sqFt{
+          flex: 1;  
+        }
+        .10sqFt:hover{
+             background-color: #3387B2;
+        }
+        #inch{
+        }
+        
+        .10sqFt:last-child{
+            border-right: 7px;
+             margin-right: -1% !important;
+        }
+        #cm div:last-child{
+            border-right: 14px solid #204199;
+            margin-right: -8px !important;
+        }
+        .middle{
+            height:450px;
+        }
+        .blue{
+            background: #3387B2;
+        }
+        .blueHover{
+            background: #3387B2;
+            border-top: 7px solid #204199  !important;
+            border-right: 0px solid #204199  !important;
+            border-bottom: 7px solid #204199  !important;
+            border-left: 0px solid #204199  !important;
+        }
+        .blueHover1{
+            background: #3387B2;
+            border-top: 7px solid #204199  !important;
+            border-right: 7px solid #204199  !important;
+            border-bottom: 7px solid #204199  !important;
+            border-left: 7px solid #204199  !important;
+        }
+        
+        .cmHover{
+            background-image: repeating-linear-gradient(180deg, #f38b7c, #f38b7c 30px, #006838 30px, #006838 60px);
+        }
+        #cm div:hover{
+            background-image: repeating-linear-gradient(180deg, #f38b7c, #f38b7c 30px, #006838 30px, #006838 60px);
+        }
+        
+        #meter{
+            border-right: 14px solid #204199  !important;
+        }
+        #meter:hover{
+            background-color:#f38b7c;
+        }
+        #mass {
+            margin-top: -40px;
+        }
+        
+        #colophon{
+            margin-top: -5px;
+            /*padding-top: 30px;*/
+            color:#1F4496;
+            
+            /*margin: 0 auto;*/
+        }
+        .sect{
+            display: inline-block;
+            /*margin: 0 auto;*/
+            /*padding: 20px 20px;*/
+            /*height: 100%;*/
+        }
+        .sect h1{
+            text-align: center;
+        }
+        .sect:first-child {
+            width: 30%;
+            float: left;
+            background-color: white;
+            
+        }
+        .sect:first-child p{
+            font-size: 16px;
+        }
+        .sect:nth-child(2){
+            width: 35%;
+            margin-right: -3%;
+            background-color: #70AABF;
+            border-left: 14px solid #204199  !important;
+        }
+        .sect:last-child{
+            width: 33%;
+            float: right;
+            border-left: 14px solid #204199  !important;
+            background-color: #F08C78;
+        }
+        .sect:last-child p{
+            margin: 10px 0;
+        }
+        .content{
+            padding: 30px;
+        }

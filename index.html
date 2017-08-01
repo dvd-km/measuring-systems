@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <script src="jquery-3.1.1.min.js"></script>
+    <script src="snap.svg-min.js"></script>
+    <script src="unit3.js"></script>
+    <link rel="stylesheet" type="text/css" href="m-s.css" media="screen" />
+
+</head>
+<body>
+    <!-- begin LENGTH -->
+    
+    <div class="container" id="inch">
+        <div id="1in"></div>
+        <div id="2in"></div>
+    </div>
+    <div class="container" id="cm">
+        <div id="1cm"></div>
+        <div id="2cm"></div>
+        <div id="3cm"></div>
+        <div id="4cm"></div>
+        <div id="5cm"></div>
+    </div>
+    <!-- end LENGTH -->
+
+    <!-- begin AREA -->
+    <div class="container middle" id="area">
+        <div id="feet">
+            <div class="10sqFt">
+            </div>
+            <div class="10sqFt">
+            </div>
+            <div class="10sqFt">
+            </div>
+            <div class="10sqFt">
+            </div>
+            <div class="10sqFt">
+            </div>
+            <div class="10sqFt">
+            </div>
+            <div class="10sqFt">
+            </div>
+            <div class="10sqFt">
+            </div>
+            <div class="10sqFt">
+            </div>
+            <div class="10sqFt">
+            </div>
+        </div>
+        <div id="meter">
+        </div>      
+    </div>
+    <!--end AREA-->
+
+    <!-- begin SVG VOLUME -->
+    <svg id="vlm"></svg>
+    <pre class="javascript code"><code data-language="javascript" class="language-javascript" id="code"></code></pre>
+
+    <svg width="0" height="0">
+        <pattern x="0" y="-10" width="50" height="50" patternUnits="userSpaceOnUse" id="dots" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g><rect x="0" y="0" width="60" height="60" fill="#F08C78"/><circle cx="12.5" cy="12.5" r="12.5" fill="#006838"></circle></g></pattern>
+    </svg>
+    <svg width="0" height="0">
+        <pattern x="0" y="0" width="150" height="150" patternUnits="userSpaceOnUse" id="dotsLrg" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg"><g><rect x="0" y="0" width="150" height="150" fill="#F08C78"/><circle cx="40" cy="40" r="40" fill="#006838"></circle></g></pattern>
+    </svg>
+    <svg width="0" height="0">
+        <pattern x="0" y="0" width="150" height="150" patternUnits="userSpaceOnUse" id="massStripes" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg"><g><path d="M10-5-10,15M15,0,0,15M0-5-20,15"fill="none" stroke="006838" stroke-width="7"/></g></pattern>
+    </svg>
+    <!-- end SVG VOLUME -->
+
+
+    <!-- begin SVG MASS -->
+    
+    <svg id="mass"></svg>
+    
+    <!-- end SVG MASS -->
+
+    <!-- begin colophon -->
+
+    <div id="colophon">
+        <div class="sect">
+            <div class="content">
+            <h1>Measurement systems</h1>
+            <p>Measurement systems were invented to regualte and systemize things in a society for economical and communicational purposes and as such, they are closely related to cultural contexts.</p>
+            <p class="bold"> This website shows differencies between two systems with examples of one(1) of each unit.</p>
+            </div>
+        </div>
+        <div class="sect">
+            <div class="content">
+                <h1>US Customary units</h1>
+
+                <p class="bold">Length</p>
+
+                <p>1 inch = 2.54 cm (in America)</p>
+
+                <p class="bold">Area</p>
+
+                <p>1 ft2 = 0.092 m2 (in America)</p>
+
+                <p class="bold">Volume</p>
+
+                <p>1 gallon = 3.78 liter (in America)</p>
+
+                <p class="bold">Mass</p>
+
+                <p>1 pound = 0.45 kg (in America)</p>
+            </div>
+        </div>
+        <div class="sect">
+            <div class="content">
+                <h1>Metric system</h1>
+
+                <p class="bold">Length </p>
+
+                <p>1 cm = 0.39 inch (in Korea)</p>
+                <p>2 cm = 0.78 inch (in China)</p>
+                <p>3 cm = 1.18 inch (in the Netherlands)</p>
+                <p>4 cm = 1.57 inch (in Japan)</p>
+                <p>5 cm = 1.96 inch (in Greece) </p>
+
+                <p class="bold">Area </p>
+
+                <p>1 m2 = 0.092 ft2 (in Russia)</p>
+
+                <p class="bold">Volume</p>
+
+                <p>1 liter = 0.26 gallon (in Czech)</p>
+                <p>2 liter = 0.52 gallon (in Arab Emirates)</p>
+                <p>3 liter = 0.79 gallon (in France)</p>
+                <p>4 liter = 1.05 gallon </p>
+                <p>5 liter = 1.32 gallon (in Spain)</p>
+                <p>6 liter = 1.58 gallon (in Vietnam)</p>
+                <p>7 liter = 1.84 gallon (in Poland)</p>
+                <p>8 liter = 2.11 gallon (in Turkey)</p>
+
+                <p class="bold">Mass</p>
+
+                <p>1 kg =  2.2 pound (in Italia)</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<script type="text/javascript">
+
+    jQuery.fn.extend({
+        afterTime: function (sec, callback) {
+            that = $(this);
+            setTimeout(function () {
+                callback.call(that);
+            }, sec);
+            return this;
+        }
+    });
+
+
+    var winWidth = $(window).width();
+    var winHeight = $(window).height();
+    var unitHeight = Math.floor(winHeight/2);
+    var inchWidth = Math.floor(winWidth/2);
+    var cmWidth = Math.floor(winWidth/5);
+    var feetWidth = Math.floor(inchWidth/10); 
+    var massWidth = Math.floor(inchWidth/6); 
+
+    var v = Snap('#vlm')
+    var galHeight = Math.floor(winHeight/2);
+    var literHeight = Math.floor(winHeight/8);
+
+    var imperialVolume1 = v.rect(0, 0, inchWidth, galHeight).attr({fill: "#fff", stroke: "#000", strokeWidth: 0, id:"iVol1"});
+    var imperialVolume2 = v.rect(0, galHeight, inchWidth, galHeight*2).attr({fill: "#fff", stroke: "#000", strokeWidth: 0, id:"iVol2"});
+    var galHoriz = v.path("M0,"+galHeight+","+inchWidth+","+galHeight).attr({
+        fill: "none",
+        stroke: "#204199",
+        strokeWidth: 13,
+        id: "galHoriz"
+    });
+    var galVert = v.path("M"+inchWidth+",0,"+inchWidth+","+winHeight).attr({
+        fill: "none",
+        stroke: "#204199",
+        strokeWidth: 26
+    });
+    var literHeight = Math.floor(winHeight/8);
+    for (var i = 0; i <= 8; i++) {
+        var literStroke = (i*literHeight)+literHeight;
+        if(i != 4){
+        v.rect(inchWidth, i*literHeight, winWidth, i*literHeight+literHeight).attr({fill: "#fff",stroke: "#204199",strokeWidth: 13, id:"literRect"+i, class:"literRect", num:i});
+        }
+        else{
+            v.rect(inchWidth, i*literHeight, winWidth, i*literHeight+literHeight).attr({fill: "#fff",stroke: "#204199",strokeWidth: 13, id:"literRect"+i, class:"", num:i});
+        }
+    }
+
+    var m = Snap('#mass')
+    
+    
+    var lb_field = m.rect(0,0, inchWidth, winHeight).attr({fill: "#fff", id:"lb_field"});
+    var kg_field = m.rect(inchWidth,0, inchWidth, winHeight).attr({fill: "#fff", id:"kg_field"});
+
+    var lbHoriz = m.path("M0,0,"+inchWidth+",0").attr({
+        fill: "none",
+        stroke: "#204199",
+        strokeWidth: 26, id:"lbHoriz"
+    });
+
+    var kgHoriz = m.path("M"+inchWidth+",0,"+winWidth+",0").attr({
+        fill: "none",
+        stroke: "#204199",
+        strokeWidth: 26, id:"kgHoriz"
+    });
+    var massVert = m.path("M"+inchWidth+",0,"+inchWidth+","+winHeight).attr({
+        fill: "none",
+        stroke: "#204199",
+        strokeWidth: 26
+    });
+    var cirX = Math.floor(inchWidth/2); 
+    var p = m.path("M20-10-20,30M30,0,0,30M0-10-40,40").attr({
+        fill: "none",
+        stroke: "#3387B2",
+        strokeWidth: 7
+    }).pattern(0, 0, 20, 20);
+
+    var boxHeight = 50
+    var gridHeight = 135
+    var gridDotCy = Math.floor(gridHeight/2)
+    // var gridDotXc = Math.floor(gridHeight*3)
+    var gridDotR =  Math.floor(gridHeight/4.5)
+
+
+
+    var lbShape1R = m.rect(0+60, -gridHeight, gridHeight*3, gridHeight).attr({fill: "#F08C78"});
+    var lbShape1C = m.circle(gridDotCy+60, -gridDotCy, gridDotR).attr({fill: "#FFFFFF"});
+    var lbShape1C2 = m.circle(gridDotCy*3+60, -gridDotCy, gridDotR).attr({fill: "#FFFFFF"});
+    var lbShape1C3 = m.circle(gridDotCy*5+60, -gridDotCy, gridDotR).attr({fill: "#FFFFFF"});
+    var lbG1 = m.group(lbShape1R,lbShape1C,lbShape1C2,lbShape1C3).attr({id:"lb1"});
+
+    var lbShape2P = m.polygon(3*gridHeight+60,-gridHeight,3*gridHeight+60,-2*gridHeight,2*gridHeight+60,-2*gridHeight,2*gridHeight+60,-3*gridHeight,4*gridHeight+60,-3*gridHeight,4*gridHeight+60,-gridHeight,3*gridHeight,-gridHeight).attr({fill: "#006938"});
+    var lbShape2C = m.circle(gridDotCy+3*gridHeight+60, -3*gridDotCy, gridDotR).attr({fill: "#FFFFFF"});
+    var lbShape2C2 = m.circle(gridDotCy+3*gridHeight+60, -5*gridDotCy, gridDotR).attr({fill: "#FFFFFF"});
+    var lbShape2C3 = m.circle(gridDotCy+2*gridHeight+60, -5*gridDotCy, gridDotR).attr({fill: "#FFFFFF"});
+    var lbG2 = m.group(lbShape2P,lbShape2C,lbShape2C2,lbShape2C3).attr({id:"lb2"});
+
+    var lbShape3R = m.rect(60, -2*gridHeight, gridHeight*2, gridHeight*2).attr({fill: "#71A9BF"});
+    var lbShape3C = m.circle(gridDotCy+60, -gridDotCy, gridDotR).attr({fill: "#FFFFFF"});
+    var lbShape3C2 = m.circle(gridDotCy*3+60, -gridDotCy, gridDotR).attr({fill: "#FFFFFF"});
+    var lbShape3C3 = m.circle(gridDotCy+60, -3*gridDotCy, gridDotR).attr({fill: "#FFFFFF"});
+    var lbShape3C4 = m.circle(gridDotCy*3+60, -3*gridDotCy, gridDotR).attr({fill: "#FFFFFF"});
+    var lbG3 = m.group(lbShape3R,lbShape3C,lbShape3C2,lbShape3C3,lbShape3C4).attr({id:"lb3"});
+
+    var lbShape4R = m.rect(3*gridHeight+60, -2*gridHeight, gridHeight, gridHeight*2).attr({fill: "#066190"});
+    var lbShape4C = m.circle(gridHeight*3+gridDotCy+60, -gridDotCy, gridDotR).attr({fill: "#FFFFFF"});
+    var lbShape4C2 = m.circle(gridHeight*3+gridDotCy+60, -3*gridDotCy, gridDotR).attr({fill: "#FFFFFF"});
+    var lbG4 = m.group(lbShape4R,lbShape4C,lbShape4C2).attr({id:"lb4"});
+
+    var lbShape5R = m.rect(gridHeight+60, -4*gridHeight, gridHeight, gridHeight).attr({fill: "#F16623"});
+    var lbShape5C = m.circle(gridHeight+gridDotCy+60, -7*gridDotCy, gridDotR).attr({fill: "#FFFFFF"});
+    var lbG5 = m.group(lbShape5R,lbShape5C).attr({id:"lb5"});
+
+    // kgs
+
+    var kg1 = m.rect(inchWidth+0+60, -gridHeight, gridHeight*3, gridHeight).attr({fill: "#F08C78",id:"kg1"});
+
+    var kg2 = m.polygon(inchWidth+3*gridHeight+60,-gridHeight,inchWidth+3*gridHeight+60,-2*gridHeight,inchWidth+2*gridHeight+60,-2*gridHeight,inchWidth+2*gridHeight+60,-3*gridHeight,inchWidth+4*gridHeight+60,-3*gridHeight,inchWidth+4*gridHeight+60,-gridHeight,inchWidth+3*gridHeight,-gridHeight).attr({fill: "#006938",id:"kg2"});    
+
+    var kg3 = m.rect(inchWidth+60, -2*gridHeight, gridHeight*2, gridHeight*2).attr({fill: "#71A9BF",id:"kg3"});
+
+    var kg4 = m.rect(inchWidth+3*gridHeight+60, -2*gridHeight, gridHeight, gridHeight*2).attr({fill: "#066190",id:"kg4"});
+
+    var kg5 = m.rect(inchWidth+gridHeight+60, -4*gridHeight, gridHeight, gridHeight).attr({fill: "#F16623",id:"kg5"});
+
+      
+    $(document).ready(function(){
+
+        // LOADING SOUNDS 
+
+        var sound1in = document.createElement("audio");
+        sound1in.src="sounds/1inch.mp3";
+        sound1in.volume=0.10;
+        sound1in.autoPlay=false;
+        sound1in.preLoad=true; 
+
+        var sound2in = document.createElement("audio");
+        sound2in.src="sounds/2inch.mp3";
+        sound2in.volume=0.10;
+        sound2in.autoPlay=false;
+        sound2in.preLoad=true; 
+
+        var sound1cm = document.createElement("audio");
+        sound1cm.src="sounds/1cm.mp3";
+        sound1cm.volume=0.10;
+        sound1cm.autoPlay=false;
+        sound1cm.preLoad=true; 
+
+        var sound2cm = document.createElement("audio");
+        sound2cm.src="sounds/2cm.mp3";
+        sound2cm.volume=0.10;
+        sound2cm.autoPlay=false;
+        sound2cm.preLoad=true; 
+
+        var sound3cm = document.createElement("audio");
+        sound3cm.src="sounds/3cm.mp3";
+        sound3cm.volume=0.10;
+        sound3cm.autoPlay=false;
+        sound3cm.preLoad=true; 
+
+        var sound4cm = document.createElement("audio");
+        sound4cm.src="sounds/4cm.mp3";
+        sound4cm.volume=0.10;
+        sound4cm.autoPlay=false;
+        sound4cm.preLoad=true; 
+
+        var sound5cm = document.createElement("audio");
+        sound5cm.src="sounds/5cm.mp3";
+        sound5cm.volume=0.10;
+        sound5cm.autoPlay=false;
+        sound5cm.preLoad=true; 
+
+        var sound1sqFt = document.createElement("audio");
+        sound1sqFt.src="sounds/1sqft.mp3";
+        sound1sqFt.volume=0.10;
+        sound1sqFt.autoPlay=false;
+        sound1sqFt.preLoad=true;
+
+        var sound10sqFt = document.createElement("audio");
+        sound10sqFt.src="sounds/10sqft.mp3";
+        sound10sqFt.volume=0.10;
+        sound10sqFt.autoPlay=false;
+        sound10sqFt.preLoad=true;
+
+        var sound1sqmeter = document.createElement("audio");
+        sound1sqmeter.src="sounds/1sqmeter.mp3";
+        sound1sqmeter.volume=0.10;
+        sound1sqmeter.autoPlay=false;
+        sound1sqmeter.preLoad=true;
+
+        var sound1gal = document.createElement("audio");
+        sound1gal.src="sounds/1gal.mp3";
+        sound1gal.volume=0.10;
+        sound1gal.autoPlay=false;
+        sound1gal.preLoad=true;
+
+        var sound2gal = document.createElement("audio");
+        sound2gal.src="sounds/2gal.mp3";
+        sound2gal.volume=0.10;
+        sound2gal.autoPlay=false;
+        sound2gal.preLoad=true;
+
+        var sound1liter = document.createElement("audio");
+        sound1liter.src="sounds/1liter.mp3";
+        sound1liter.volume=0.10;
+        sound1liter.autoPlay=false;
+        sound1liter.preLoad=true;
+
+        var sound2liter = document.createElement("audio");
+        sound2liter.src="sounds/2liter.mp3";
+        sound2liter.volume=0.10;
+        sound2liter.autoPlay=false;
+        sound2liter.preLoad=true;
+
+        var sound3liter = document.createElement("audio");
+        sound3liter.src="sounds/3liter.mp3";
+        sound3liter.volume=0.10;
+        sound3liter.autoPlay=false;
+        sound3liter.preLoad=true;
+
+        var sound4liter = document.createElement("audio");
+        sound4liter.src="sounds/water.mp3";
+        sound4liter.volume=0.85;
+        sound4liter.autoPlay=false;
+        sound4liter.preLoad=true;
+
+        var sound5liter = document.createElement("audio");
+        sound5liter.src="sounds/5liter.mp3";
+        sound5liter.volume=0.10;
+        sound5liter.autoPlay=false;
+        sound5liter.preLoad=true;
+
+        var sound6liter = document.createElement("audio");
+        sound6liter.src="sounds/6liter.mp3";
+        sound6liter.volume=0.10;
+        sound6liter.autoPlay=false;
+        sound6liter.preLoad=true;
+
+        var sound7liter = document.createElement("audio");
+        sound7liter.src="sounds/7liter.mp3";
+        sound7liter.volume=0.10;
+        sound7liter.autoPlay=false;
+        sound7liter.preLoad=true;
+
+        var sound8liter = document.createElement("audio");
+        sound8liter.src="sounds/8liter.mp3";
+        sound8liter.volume=0.10;
+        sound8liter.autoPlay=false;
+        sound8liter.preLoad=true;
+
+        var soundLbDrop = document.createElement("audio");
+        soundLbDrop.src="sounds/effect_Mass_pound.mp3";
+        soundLbDrop.volume=0.10;
+        soundLbDrop.autoPlay=false;
+        soundLbDrop.preLoad=true;
+
+        var soundKgDrop = document.createElement("audio");
+        soundKgDrop.src="sounds/effect_Mass_kg.mp3";
+        soundKgDrop.volume=0.10;
+        soundKgDrop.autoPlay=false;
+        soundKgDrop.preLoad=true;
+
+        var soundKg = document.createElement("audio");
+        soundKg.src="sounds/1kg.mp3";
+        soundKg.volume=0.10;
+        soundKg.autoPlay=false;
+        soundKg.preLoad=true;
+
+        var soundLb = document.createElement("audio");
+        soundLb.src="sounds/1pound.mp3";
+        soundLb.volume=0.10;
+        soundLb.autoPlay=false;
+        soundLb.preLoad=true;
+
+        $("#1in").click(function() {
+            sound1in.play();
+        });
+        $("#2in").click(function() {
+            sound2in.play();
+        });
+
+        $("#1cm").click(function() {
+            sound1cm.play();
+        });
+        $("#2cm").click(function() {
+            sound2cm.play();
+        });
+        $("#3cm").click(function() {
+            sound3cm.play();
+        });
+        $("#4cm").click(function() {
+            sound4cm.play();
+        });
+        $("#5cm").click(function() {
+            sound5cm.play();
+        });
+
+
+        $("#meter").click(function() {
+            sound1sqmeter.play();
+        });
+
+
+        $("#iVol1").click(function() {
+            sound2gal.play();
+        });
+        $("#iVol2").click(function() {
+            sound1gal.play();
+        });
+
+
+        $("#literRect7").click(function() {
+            sound1liter.play();
+        });
+        $("#literRect6").click(function() {
+            sound2liter.play();
+        });
+        $("#literRect5").click(function() {
+            sound3liter.play();
+        });
+        
+        $("#literRect3").click(function() {
+            sound5liter.play();
+        });
+        $("#literRect2").click(function() {
+            sound6liter.play();
+        });
+        $("#literRect1").click(function() {
+            sound7liter.play();
+        });
+        $("#literRect0").click(function() {
+            sound8liter.play();
+        });
+
+        var winWidth = $(window).width();
+        var winHeight = $(window).height();
+        var unitHeight = Math.floor(winHeight/2);
+        var inchWidth = Math.floor(winWidth/2);
+        var cmWidth = Math.floor(winWidth/5);
+        var feetWidth = Math.floor(inchWidth/10);
+
+        // var massCount = 0
+        var kgCount = 0
+        var lbCount = 0    
+
+        $('#feet:first-child').click(function(){
+            console.log("click");
+               
+            $(".10sqFt").each(function(index) {        
+                var that = this;
+                
+
+                var t = setTimeout(function() { 
+                $(that).addClass("blue"); 
+                }, 150 * index);
+                var v = $(that).afterTime(1400, function () {
+                    sound10sqFt.play();
+                });
+                var u = $(that).afterTime(2700, function () {
+                    // $(that).fadeOut("slow", function() {
+                        $(that).removeClass("blue");
+
+                    // });
+                });
+
+            });
+            sound1sqFt.play();
+                         
+        });
+
+        $('.10sqFt').hover(function() {
+            $(this).addClass("blue");
+        }, function() {
+                $(this).removeClass("blue");
+            });
+
+        $('#iVol2').hover(
+            function() {
+                $(this).attr({
+                        fill: "#3387B2"
+                });
+            }, function() {
+                    $(this).attr({
+                        fill: "#fff"
+                    });
+                }
+        );
+        $('#iVol1').hover(
+            function() {
+            // var bottomVol = Snap.select('#iVol2');
+                var iVolHoriz =  Snap.select('#galHoriz')
+                $(this).attr({
+                        fill: "#3387B2"
+                });
+                $('#iVol2').attr({
+                        fill: "#3387B2"
+                });
+                iVolHoriz.attr({strokeWidth:13});
+                // bottomVol.attr({
+                //         fill: "#3387B2",
+                //         strokeWidth: 0
+                // });
+            }, function() {
+                // var bottomVol = Snap.select('#iVol2');
+                var iVolHoriz =  Snap.select('#galHoriz')
+                    $(this).attr({
+                        fill: "#fff"
+                    });
+                    $('#iVol2').attr({
+                        fill: "#3387B2"
+                    });
+                    iVolHoriz.attr({strokeWidth:13});
+                }
+        );
+
+        $('.literRect').hover(
+            function() {
+
+                var num = $(this).attr("num");
+
+                if ( num > 4 ){
+                    for (var i = 0; i <= 8-num; i++) {
+                    var rocketShip = Snap.select('#literRect'+(8-i));
+                    rocketShip.attr({fill: Snap("#dots")});
+                    }
+                }
+                else if(num < 4 ){
+                    for (var i = 0; i <= 8-num; i++) {
+                    var rocketShip = Snap.select('#literRect'+(8-i));
+                    rocketShip.attr({fill: Snap("#dots")});
+                    }
+                }
+
+            }, function() {
+                    $(this).attr({
+                        fill: "#fff"
+                    });
+                }
+        );
+
+
+        $('#literRect4').hover(
+            function() {
+                for (var i = 4; i <= 8; i++) {
+                    var dotsLarge = Snap.select('#literRect'+i);
+                    dotsLarge.attr({fill: Snap("#dotsLrg")});
+                }
+
+            }, function() {
+                    $(this).attr({
+                        fill: "#fff"
+                    });
+                }
+        );
+
+        var literC = Math.floor(winWidth/5);
+        var literR = Math.floor(winWidth/7);
+        $('#literRect4').click(
+            function() {
+                sound4liter.play();
+                var literCircle1 = v.circle(literC, -400, literR).attr({fill: "#204199",stroke: "#000000",strokeWidth: 0, class:"bigCircl",id:"bigCircl_1"});
+                var literCircle2 = v.circle(literC+200, -200, literR).attr({fill: "#204199",stroke: "#000000",strokeWidth: 0, class:"bigCircl",id:"bigCircl_2"});
+                var literCircle3 = v.circle(literC*3, -200, literR).attr({fill: "#204199",stroke: "#000000",strokeWidth: 0, class:"bigCircl",id:"bigCircl_3"});
+                var literCircle4 = v.circle(literC*3+200, -200, literR).attr({fill: "#204199",stroke: "#000000",strokeWidth: 0, class:"bigCircl",id:"bigCircl_4"});
+
+                literCircle1.animate({transform:"t0,500s1.7,literR,literR"},600);
+
+                literCircle2.animate({transform:"t0,900s1.5,literC,0"},1000);
+                literCircle3.animate({transform:"t0,500"},1000);
+                literCircle4.animate({transform:"t0,750"},1300, function(){
+                        $('#bigCircl_1').remove();
+                        $('#bigCircl_2').remove();
+                        $('#bigCircl_3').remove();
+                        $('#bigCircl_4').remove();
+                   
+                });
+
+            }
+        );
+       
+
+        $('#1in').hover(
+            function() {
+                $(this).addClass("blueHover1")
+
+            }, function() {
+                    $(this).removeClass("blueHover1");
+                }
+        );
+        $('#2in').hover(
+            // alert('last child');
+            // var inch1 = $(this).prev()
+            function() {
+                $(this).addClass("blueHover1");
+               $('#1in').addClass("blueHover1");
+
+            }, function() {
+                $(this).removeClass("blueHover1");
+                $('#1in').removeClass("blueHover1");
+                }
+        );
+
+        $('#cm div').hover(
+            function() {
+                $(this).prevAll().addClass("cmHover");
+
+            }, function() {
+                   $(this).prev().removeClass("cmHover");
+                }
+        );
+
+        $('#clickCirc').hover(
+            function() {
+                var clickC = Snap.select('#clickCirc');
+                clickC.attr({"fill-opacity":1,strokeWidth:7})
+
+            }, function() {
+                var clickC = Snap.select('#clickCirc');
+                   clickC.attr({"fill-opacity":0.5,strokeWidth:0})
+                }
+        );
+
+
+        // lb drop        
+        $('#lb_field').click(
+            function() {
+                lbCount = lbCount +1
+                console.log('lbCount = '+lbCount);
+                
+            // reset the canvas after 6 boxes
+                if (lbCount == 6){
+
+                    soundLb.play();
+                }
+                if ( lbCount == 7 ){
+                    var lbBar = Snap.select('#lbHoriz');
+                    lbBar.animate({transform: revString},10);
+
+                    for (var i = 1; i < 6; i++) {
+                        console.log("in the for loop i: "+i);
+                        var rem = Snap.select('#lb'+i);
+                        var reverseHeight = (massWidth*i)+70
+                        var revString = "t0,-"+reverseHeight
+                        console.log("baack it up this much : "+reverseHeight);
+                        rem.animate({transform: revString},10);
+                       // console.log("removed object :");
+
+                    }
+                    
+                    lbCount = 0
+                }
+
+                // looping through boxes and transform y
+                else {
+                    
+                    console.log("inside else lbCount not 8, lbCount is : "+lbCount);
+                    console.log("gridHeight is still:"+gridHeight)
+                    var buff = gridHeight * lbCount +20
+                    var thisMove = gridHeight * (lbCount+1) +20
+                    var fluff = gridHeight * (lbCount - 1) +20
+                    var ruff = gridHeight * (lbCount - 2) +20
+                    console.log("here's the buffer : "+buff);
+                    
+
+                    var lb = Snap.select('#lb'+lbCount);
+                    // console.log(lb);
+                    if (lbCount == 1){
+                        soundLbDrop.play();
+                    lb.animate({"fill-opacity":1},200, function(){
+                        lb.animate({transform:"t0,"+buff},1200);
+                        });
+                    }
+                    if (lbCount == 2){
+                        soundLbDrop.play();
+                        lb.animate({"fill-opacity":1},200, function(){
+                        lb.animate({transform:"t0,"+thisMove},1200);
+                        });
+                        var lb1 = Snap.select('#lb1');
+                        lb1.animate({transform:"t0,"+buff},1200);
+                    }
+                    if (lbCount == 3){
+                        soundLbDrop.play();
+                        console.log("in lbCount3");
+                        console.log(lb);
+                        console.log('that was LB')
+                        lb.animate({"fill-opacity":1},200, function(){
+                        lb.animate({transform:"t0,"+fluff},1200);
+                        });
+                        // var lbEarly = Snap.select('#lb3')
+                        // lbEarly.animate({transform:"t0,500"},1200);
+                        
+                        var lb2 = Snap.select('#lb2');
+                        var lb1 = Snap.select('#lb1');
+                        lb2.animate({transform:"t0,"+thisMove},1200);
+                        lb1.animate({transform:"t0,"+buff},1200);
+                    }
+
+                    if (lbCount == 4){
+                        soundLbDrop.play();
+                        console.log("in lbCount4");
+                        console.log(lb);
+                        console.log('that was LB')
+                        lb.animate({"fill-opacity":1},200, function(){
+                        lb.animate({transform:"t0,"+ruff},1200);
+                        });
+
+                        var lb3 = Snap.select('#lb3');
+                        var lb2 = Snap.select('#lb2');
+                        var lb1 = Snap.select('#lb1');
+                        lb3.animate({transform:"t0,"+fluff},1200);
+                        lb2.animate({transform:"t0,"+thisMove},1200);
+                        lb1.animate({transform:"t0,"+buff},1200);
+                    }
+
+                    if (lbCount == 5){
+                        soundLbDrop.play();
+                        console.log("in lbCount5");
+                        console.log(lb);
+                        console.log('that was LB')
+                        lb.animate({"fill-opacity":1},200, function(){
+                        lb.animate({transform:"t0,"+buff},1200);
+                        });
+
+                        var lb4 = Snap.select('#lb4');
+                        var lb3 = Snap.select('#lb3');
+                        var lb2 = Snap.select('#lb2');
+                        var lb1 = Snap.select('#lb1');
+                        lb4.animate({transform:"t0,"+ruff},1200);
+                        lb3.animate({transform:"t0,"+fluff},1200);
+                        lb2.animate({transform:"t0,"+thisMove},1200);
+                        lb1.animate({transform:"t0,"+buff},1200);
+                    }
+
+                    var lbBar = Snap.select('#lbHoriz');
+                    var lbBarMove = buff
+                    $(this).afterTime(200, function () {
+                        lbBar.animate({transform:"t0,"+lbBarMove},1200);
+                    });
+
+                }
+
+            });
+        // kg drop
+            $('#kg_field').click(
+                function() {
+                    kgCount = kgCount +1
+                    console.log('kgCount = '+kgCount);
+                    
+                // reset the canvas after 6 boxes
+                    if (kgCount == 6){
+                        
+                        soundKg.play();
+                    }
+                    if ( kgCount == 7 ){
+                        var kgBar = Snap.select('#kgHoriz');
+                        kgBar.animate({transform: revString},10);
+
+                        for (var i = 1; i < 6; i++) {
+                            console.log("in the for loop i: "+i);
+                            var rem = Snap.select('#kg'+i);
+                            var reverseHeight = (massWidth*i)+70
+                            var revString = "t0,-"+reverseHeight
+                            console.log("baack it up this much : "+reverseHeight);
+                            rem.animate({transform: revString},10);
+                           // console.log("removed object :");
+
+                        }
+                        
+                        kgCount = 0
+                    }
+
+                 // looping through boxes and transform y
+                    else {
+                        
+                        console.log("inside else kgCount not 8, kgCount is : "+kgCount);
+                        console.log("gridHeight is still:"+gridHeight)
+                        var buff = gridHeight * kgCount +20
+                        var thisMove = gridHeight * (kgCount+1) +20
+                        var fluff = gridHeight * (kgCount - 1) +20
+                        var ruff = gridHeight * (kgCount - 2) +20
+                        console.log("here's the buffer : "+buff);
+                        
+
+                        var kg = Snap.select('#kg'+kgCount);
+                        // console.log(kg);
+                        if (kgCount == 1){
+                            soundKgDrop.play();
+                            kg.animate({"fill-opacity":1},200, function(){
+                            kg.animate({transform:"t0,"+buff},545);
+                            });
+                        }
+                        if (kgCount == 2){
+                            soundKgDrop.play();
+                            kg.animate({"fill-opacity":1},200, function(){
+                            kg.animate({transform:"t0,"+thisMove},545);
+                            });
+                            var kg1 = Snap.select('#kg1');
+                            kg1.animate({transform:"t0,"+buff},545);
+                        }
+                        if (kgCount == 3){
+                            soundKgDrop.play();
+                            console.log("in kgCount3");
+                            console.log(kg);
+                            console.log('that was kg')
+                            kg.animate({"fill-opacity":1},200, function(){
+                            kg.animate({transform:"t0,"+fluff},545);
+                            });
+                            
+                            var kg2 = Snap.select('#kg2');
+                            var kg1 = Snap.select('#kg1');
+                            kg2.animate({transform:"t0,"+thisMove},545);
+                            kg1.animate({transform:"t0,"+buff},545);
+                        }
+
+                        if (kgCount == 4){
+                            soundKgDrop.play();
+                            console.log("in kgCount4");
+                            console.log(kg);
+                            console.log('that was kg')
+                            kg.animate({"fill-opacity":1},200, function(){
+                            kg.animate({transform:"t0,"+ruff},545);
+                            });
+
+                            var kg3 = Snap.select('#kg3');
+                            var kg2 = Snap.select('#kg2');
+                            var kg1 = Snap.select('#kg1');
+                            kg3.animate({transform:"t0,"+fluff},545);
+                            kg2.animate({transform:"t0,"+thisMove},545);
+                            kg1.animate({transform:"t0,"+buff},545);
+                        }
+
+                        if (kgCount == 5){
+                            soundKgDrop.play();
+                            console.log("in kgCount5");
+                            console.log(kg);
+                            console.log('that was kg')
+                            kg.animate({"fill-opacity":1},200, function(){
+                            kg.animate({transform:"t0,"+buff},545);
+                            });
+
+                            var kg4 = Snap.select('#kg4');
+                            var kg3 = Snap.select('#kg3');
+                            var kg2 = Snap.select('#kg2');
+                            var kg1 = Snap.select('#kg1');
+                            kg4.animate({transform:"t0,"+ruff},545);
+                            kg3.animate({transform:"t0,"+fluff},545);
+                            kg2.animate({transform:"t0,"+thisMove},545);
+                            kg1.animate({transform:"t0,"+buff},545);
+                        }
+
+                        var kgBar = Snap.select('#kgHoriz');
+                        var kgBarMove = buff
+                        $(this).afterTime(200, function () {
+                            kgBar.animate({transform:"t0,"+kgBarMove},545);
+                        });
+
+                    }
+
+                });
+
+            
+    }); 
+
+    window.addEventListener('resize', function () { 
+        "use strict";
+        window.location.reload(); 
+    });
+
+
+</script>
+    
+</body>
+</html>
